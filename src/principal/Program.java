@@ -3,6 +3,7 @@ package principal;
 import java.util.Scanner;
 
 import entities.Funcionario;
+import repositories.FuncionarioRepository;
 
 public class Program {
 
@@ -28,13 +29,31 @@ public class Program {
 		
 		scanner.close();
 		
-		// Imprimir as informações do funcionário.
-		System.out.println("\nDADOS DO FUNCIONÁRIO:\n");
-		System.out.println("\tID........: " + funcionario.getIdFuncionario());
-		System.out.println("\tNOME......: " + funcionario.getNome());
-		System.out.println("\tMATRICULA.: " + funcionario.getMatricula());
-		System.out.println("\tCPF.......: " + funcionario.getCpf());
-
+		try {
+			
+			// Criando um objeto para a classe FuncionarioRepository
+			FuncionarioRepository funcionarioRepository = new FuncionarioRepository();
+			
+			// Gravando os dados do funcionário em arquivo
+			funcionarioRepository.exportar(funcionario);
+			
+			// Imprimindo...
+			System.out.println("\nFUNCIONÁRIO CADASTRADO COM SUCESSO!\n");
+			System.out.println("\tID........: " + funcionario.getIdFuncionario());
+			System.out.println("\tNOME......: " + funcionario.getNome());
+			System.out.println("\tMATRICULA.: " + funcionario.getMatricula());
+			System.out.println("\tCPF.......: " + funcionario.getCpf());
+		}
+		catch(Exception e) {
+			
+			// Imprimindo...
+			System.out.println("\nFALHA AO CADASTRAR FUNCIONÁRIO!");
+			
+			// Imprimir o log do erro
+			e.printStackTrace();
+			
+		}
+		
 	}
 
 }
